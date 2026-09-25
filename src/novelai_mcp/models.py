@@ -95,6 +95,9 @@ UC_PRESET_TAGS: Dict[UCPreset, str] = {
 
 QUALITY_TAGS = ["very aesthetic", "masterpiece", "no text"]
 
+# Same default as the NovelAI website.
+DEFAULT_STEPS = 23
+
 
 class AugmentTool(str, Enum):
     """Director Tools for image augmentation."""

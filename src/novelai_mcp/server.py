@@ -9,6 +9,7 @@ from mcp.server.mcpserver.exceptions import ToolError
 
 from novelai_mcp import __version__
 from novelai_mcp.client import NovelAIClient, NovelAIError
+from novelai_mcp.models import DEFAULT_STEPS
 from novelai_mcp.utils import load_image, round_to_64, save_image
 
 # Load environment variables from .env if present
@@ -57,7 +58,7 @@ async def novelai_generate_image(
     size: Optional[str] = "portrait",
     width: Optional[int] = None,
     height: Optional[int] = None,
-    steps: int = 28,
+    steps: int = DEFAULT_STEPS,
     scale: float = 5.0,
     sampler: str = "k_euler_ancestral",
     seed: Optional[int] = None,
@@ -158,7 +159,7 @@ async def novelai_img2img(
     negative_prompt: Optional[str] = None,
     model: str = "nai-diffusion-5-full",
     size: Optional[str] = None,
-    steps: int = 28,
+    steps: int = DEFAULT_STEPS,
     scale: float = 5.0,
     sampler: str = "k_euler_ancestral",
     seed: Optional[int] = None,
@@ -229,7 +230,7 @@ async def novelai_inpaint(
     strength: float = 0.7,
     negative_prompt: Optional[str] = None,
     model: str = "nai-diffusion-5-full",
-    steps: int = 28,
+    steps: int = DEFAULT_STEPS,
     scale: float = 5.0,
     sampler: str = "k_euler_ancestral",
     seed: Optional[int] = None,
@@ -372,7 +373,7 @@ async def novelai_vibe_transfer(
     negative_prompt: Optional[str] = None,
     model: str = "nai-diffusion-4-5-full",
     size: Optional[str] = "portrait",
-    steps: int = 28,
+    steps: int = DEFAULT_STEPS,
     scale: float = 5.0,
     sampler: str = "k_euler_ancestral",
     seed: Optional[int] = None,

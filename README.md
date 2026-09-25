@@ -103,7 +103,7 @@ Useful parameters of `novelai_generate_image`:
 | `model` | `nai-diffusion-5-full` | Also `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
 | `size` | `portrait` | `portrait` 832×1216, `landscape` 1216×832, `square` 1024×1024, `wallpaper` 1920×1088, `comic_strip` 1536×640, and others. |
 | `width`, `height` | — | Custom size, rounded to a multiple of 64. Both must be set. |
-| `steps` | 28 | |
+| `steps` | 23 | Same default as the NovelAI website. |
 | `scale` | 5.0 | Prompt guidance. |
 | `seed` | random | Set it to reproduce an image. The used seed is returned. |
 | `uc_preset` | `light` | `strong`, `light`, `furry_focus`, `human_focus`, `none`. |

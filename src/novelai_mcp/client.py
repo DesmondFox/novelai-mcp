@@ -11,6 +11,7 @@ import httpx
 
 from novelai_mcp import __version__
 from novelai_mcp.models import (
+    DEFAULT_STEPS,
     QUALITY_TAGS,
     UC_PRESET_INDEX,
     UC_PRESET_TAGS,
@@ -98,7 +99,7 @@ class NovelAIClient:
         size: Optional[str] = "portrait",
         width: Optional[int] = None,
         height: Optional[int] = None,
-        steps: int = 28,
+        steps: int = DEFAULT_STEPS,
         scale: float = 5.0,
         sampler: Union[Sampler, str] = Sampler.K_EULER_ANCESTRAL,
         seed: Optional[int] = None,
