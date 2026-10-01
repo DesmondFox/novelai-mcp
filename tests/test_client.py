@@ -132,6 +132,27 @@ def test_error_response_raises_with_message():
         run_with_responses(lambda: client.generate_image(prompt="x"), [err])
 
 
+def test_concurrent_requests_are_serialized():
+    client = NovelAIClient(api_key="t")
+    active = 0
+    max_active = 0
+
+    async def fake_request(*args, **kwargs):
+        nonlocal active, max_active
+        active += 1
+        max_active = max(max_active, active)
+        await asyncio.sleep(0.01)
+        active -= 1
+        return ok_response(create_dummy_zip(create_dummy_png()))
+
+    async def _run():
+        with patch("httpx.AsyncClient.request", new=fake_request):
+            await asyncio.gather(*(client.generate_image(prompt="x") for _ in range(3)))
+
+    asyncio.run(_run())
+    assert max_active == 1
+
+
 def test_character_captions_payload():
     client = NovelAIClient(api_key="test_token")
     chars = [

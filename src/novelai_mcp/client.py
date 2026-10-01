@@ -3,6 +3,7 @@
 Request shapes follow the official schema at https://image.novelai.net/docs/doc.json.
 """
 
+import asyncio
 import os
 import random
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -53,6 +54,9 @@ class NovelAIClient:
     def __init__(self, api_key: Optional[str] = None, timeout: float = 120.0):
         self.api_key = api_key or os.environ.get("NOVELAI_API_KEY") or os.environ.get("NAI_API_KEY")
         self.timeout = timeout
+        # NovelAI allows one generation at a time per account and answers 429 otherwise.
+        # Parallel tool calls wait here instead.
+        self._lock = asyncio.Lock()
 
     def _get_headers(self) -> Dict[str, str]:
         if not self.api_key:
@@ -77,7 +81,7 @@ class NovelAIClient:
         """Send a request and turn HTTP and network failures into NovelAIError."""
         url = f"{self.BASE_URL}{path}"
         try:
-            async with httpx.AsyncClient(timeout=self.timeout) as client:
+            async with self._lock, httpx.AsyncClient(timeout=self.timeout) as client:
                 resp = await client.request(method, url, json=json, params=params, headers=self._get_headers())
         except httpx.HTTPError as e:
             raise NovelAIError(f"NovelAI {name} request failed: {type(e).__name__}: {e}") from e
