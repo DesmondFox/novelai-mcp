@@ -40,7 +40,7 @@ Requests spend your Anlas the same way the NovelAI website does. Large sizes, mo
 ### Claude Code
 
 ```bash
-claude mcp add novelai -e NOVELAI_API_KEY=your_token -- uvx novelai-mcp
+claude mcp add novelai -e NOVELAI_API_KEY=your_token -- uvx mcp-server-novelai
 ```
 
 ### Claude Desktop
@@ -54,7 +54,7 @@ Edit `claude_desktop_config.json`:
   "mcpServers": {
     "novelai": {
       "command": "uvx",
-      "args": ["novelai-mcp"],
+      "args": ["mcp-server-novelai"],
       "env": {
         "NOVELAI_API_KEY": "your_token"
       }
@@ -71,10 +71,10 @@ Add the same `mcpServers` block to `.cursor/mcp.json` or to Settings → MCP.
 
 ### Install from GitHub instead of PyPI
 
-Replace `"args": ["novelai-mcp"]` with:
+Replace `"args": ["mcp-server-novelai"]` with:
 
 ```json
-"args": ["--from", "git+https://github.com/DesmondFox/novelai-mcp", "novelai-mcp"]
+"args": ["--from", "git+https://github.com/DesmondFox/novelai-mcp", "mcp-server-novelai"]
 ```
 
 ## Configuration
