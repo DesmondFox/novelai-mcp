@@ -36,7 +36,7 @@
 ### Claude Code
 
 ```bash
-claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx novelai-mcp
+claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-novelai
 ```
 
 ### Claude Desktop
@@ -50,7 +50,7 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx novelai-mcp
   "mcpServers": {
     "novelai": {
       "command": "uvx",
-      "args": ["novelai-mcp"],
+      "args": ["mcp-server-novelai"],
       "env": {
         "NOVELAI_API_KEY": "ваш_токен"
       }
@@ -67,10 +67,10 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx novelai-mcp
 
 ### Установка из GitHub вместо PyPI
 
-Замените `"args": ["novelai-mcp"]` на:
+Замените `"args": ["mcp-server-novelai"]` на:
 
 ```json
-"args": ["--from", "git+https://github.com/DesmondFox/novelai-mcp", "novelai-mcp"]
+"args": ["--from", "git+https://github.com/DesmondFox/novelai-mcp", "mcp-server-novelai"]
 ```
 
 ## Настройки

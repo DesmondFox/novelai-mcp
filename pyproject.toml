@@ -1,5 +1,5 @@
 [project]
-name = "novelai-mcp"
+name = "mcp-server-novelai"
 dynamic = ["version"]
 description = "Model Context Protocol (MCP) server for NovelAI image generation: V5/V4.5, img2img, inpaint, Director Tools, upscale, Vibe Transfer"
 readme = "README.md"
@@ -38,7 +38,7 @@ Homepage = "https://github.com/DesmondFox/novelai-mcp"
 Issues = "https://github.com/DesmondFox/novelai-mcp/issues"
 
 [project.scripts]
-novelai-mcp = "novelai_mcp.server:main"
+mcp-server-novelai = "novelai_mcp.server:main"
 
 [build-system]
 requires = ["setuptools>=77.0"]
