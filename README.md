@@ -83,6 +83,7 @@ Replace `"args": ["mcp-server-novelai"]` with:
 | :--- | :--- | :--- | :--- |
 | `NOVELAI_API_KEY` | yes | — | Persistent API Token. |
 | `NOVELAI_OUTPUT_DIR` | no | `~/Pictures/NovelAI` | Where images are saved. Each tool also accepts `output_dir`. |
+| `NOVELAI_DEFAULT_MODEL` | no | `nai-diffusion-5-full` | Default `model` of `novelai_generate_image`. Set `nai-diffusion-5-full-medium` to spend less. Other tools keep their own defaults. |
 
 ## Usage
 
@@ -100,7 +101,7 @@ Useful parameters of `novelai_generate_image`:
 
 | Parameter | Default | Notes |
 | :--- | :--- | :--- |
-| `model` | `nai-diffusion-5-full` | Also `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
+| `model` | `nai-diffusion-5-full` | Also `nai-diffusion-5-full-medium`, `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
 | `size` | `portrait` | `portrait` 832×1216, `landscape` 1216×832, `square` 1024×1024, `wallpaper` 1920×1088, `comic_strip` 1536×640, and others. |
 | `width`, `height` | — | Custom size, rounded to a multiple of 64. Both must be set. |
 | `steps` | 23 | Same default as the NovelAI website. |
@@ -111,6 +112,8 @@ Useful parameters of `novelai_generate_image`:
 | `render_text` | — | Text to draw inside the image. |
 | `transparent` | false | Transparent background. |
 | `comic_panels` | false | Adds comic/manga panel tags. |
+
+`nai-diffusion-5-full-medium` is V5 Full at Medium effort: about 40% cheaper, similar quality. NovelAI fixes its settings: 14 steps, `k_euler_ancestral`, `strong` UC preset, no `cfg_rescale`. The server sets these itself. Negative prompts are not supported and return an error.
 
 ## Development
 

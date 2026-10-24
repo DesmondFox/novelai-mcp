@@ -1,5 +1,6 @@
 """NovelAI MCP Server using MCPServer (mcp SDK 2.x)."""
 
+import os
 from contextlib import contextmanager
 from typing import Any, Dict, Iterator, List, Optional, Union
 
@@ -9,11 +10,20 @@ from mcp.server.mcpserver.exceptions import ToolError
 
 from novelai_mcp import __version__
 from novelai_mcp.client import NovelAIClient, NovelAIError
-from novelai_mcp.models import DEFAULT_STEPS
+from novelai_mcp.models import DEFAULT_STEPS, ImageModel
 from novelai_mcp.utils import load_image, round_to_64, save_image
 
 # Load environment variables from .env if present
 load_dotenv()
+
+
+def default_generation_model() -> str:
+    """Return the default model of novelai_generate_image: NOVELAI_DEFAULT_MODEL or V5 Full."""
+    return os.environ.get("NOVELAI_DEFAULT_MODEL", "").strip() or ImageModel.V5_FULL.value
+
+
+# Read once at import: the value becomes the schema default the client model sees.
+DEFAULT_GENERATION_MODEL = default_generation_model()
 
 server = MCPServer(
     name="NovelAI Image Server",
@@ -54,7 +64,7 @@ def _expected_errors() -> Iterator[None]:
 async def novelai_generate_image(
     prompt: str,
     negative_prompt: Optional[str] = None,
-    model: str = "nai-diffusion-5-full",
+    model: str = DEFAULT_GENERATION_MODEL,
     size: Optional[str] = "portrait",
     width: Optional[int] = None,
     height: Optional[int] = None,
@@ -81,7 +91,7 @@ async def novelai_generate_image(
     Args:
         prompt: Description of the image. Danbooru tags or natural language (English/Japanese/etc.).
         negative_prompt: Undesired content. The uc_preset tags are appended to it.
-        model: Model name (defaults to 'nai-diffusion-5-full'). Options: nai-diffusion-5-full, nai-diffusion-5-curated, nai-diffusion-4-5-full, nai-diffusion-4-5-curated.
+        model: Model name (the default comes from NOVELAI_DEFAULT_MODEL, else 'nai-diffusion-5-full'). Options: nai-diffusion-5-full, nai-diffusion-5-full-medium, nai-diffusion-5-curated, nai-diffusion-4-5-full, nai-diffusion-4-5-curated. nai-diffusion-5-full-medium is V5 Full at Medium effort: about 40% cheaper, similar quality. It always uses 14 steps, k_euler_ancestral, the 'strong' uc_preset and no cfg_rescale, ignoring those arguments. It rejects negative_prompt and character negative prompts.
         size: Dimension preset: portrait (832x1216), landscape (1216x832), square (1024x1024), wallpaper (1920x1088), comic_page (832x1216), comic_strip (1536x640), manga_page (832x1216). Ignored when width and height are both set.
         width: Custom width (rounded to nearest multiple of 64). Requires height.
         height: Custom height (rounded to nearest multiple of 64). Requires width.

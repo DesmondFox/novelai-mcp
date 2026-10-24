@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 class ImageModel(str, Enum):
     """Supported NovelAI image generation models."""
     V5_FULL = "nai-diffusion-5-full"
+    V5_FULL_MEDIUM = "nai-diffusion-5-full-medium"
     V5_CURATED = "nai-diffusion-5-curated"
     V4_5_FULL = "nai-diffusion-4-5-full"
     V4_5_CURATED = "nai-diffusion-4-5-curated"
@@ -97,6 +98,10 @@ QUALITY_TAGS = ["very aesthetic", "masterpiece", "no text"]
 
 # Same default as the NovelAI website.
 DEFAULT_STEPS = 23
+
+# V5 Full Medium effort is a distilled model. NovelAI fixes these settings for it:
+# 14 steps, Euler Ancestral, the Heavy UC preset, no custom negative prompt, no CFG rescale.
+MEDIUM_STEPS = 14
 
 
 class AugmentTool(str, Enum):

@@ -79,6 +79,7 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 | :--- | :--- | :--- | :--- |
 | `NOVELAI_API_KEY` | да | — | Persistent API Token. |
 | `NOVELAI_OUTPUT_DIR` | нет | `~/Pictures/NovelAI` | Папка для изображений. Каждый инструмент также принимает `output_dir`. |
+| `NOVELAI_DEFAULT_MODEL` | нет | `nai-diffusion-5-full` | `model` по умолчанию для `novelai_generate_image`. Укажите `nai-diffusion-5-full-medium`, чтобы тратить меньше. У остальных инструментов свои значения по умолчанию. |
 
 ## Использование
 
@@ -96,7 +97,7 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 
 | Параметр | По умолчанию | Примечание |
 | :--- | :--- | :--- |
-| `model` | `nai-diffusion-5-full` | Также `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
+| `model` | `nai-diffusion-5-full` | Также `nai-diffusion-5-full-medium`, `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
 | `size` | `portrait` | `portrait` 832×1216, `landscape` 1216×832, `square` 1024×1024, `wallpaper` 1920×1088, `comic_strip` 1536×640 и другие. |
 | `width`, `height` | — | Свой размер, округляется до кратного 64. Нужно задать оба. |
 | `steps` | 23 | Как на сайте NovelAI. |
@@ -107,6 +108,8 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 | `render_text` | — | Текст, который нужно нарисовать на изображении. |
 | `transparent` | false | Прозрачный фон. |
 | `comic_panels` | false | Добавляет теги комикс/манга-панелей. |
+
+`nai-diffusion-5-full-medium` — V5 Full на уровне Medium effort: примерно на 40% дешевле при похожем качестве. NovelAI фиксирует для него настройки: 14 steps, `k_euler_ancestral`, UC preset `strong`, без `cfg_rescale`. Сервер выставляет их сам. Negative prompt не поддерживается и возвращает ошибку.
 
 ## Разработка
 

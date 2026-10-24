@@ -208,6 +208,40 @@ def test_quality_and_uc_preset_applied_to_prompts():
     assert payload["action"] == "generate"
 
 
+def test_medium_effort_forces_fixed_settings():
+    client = NovelAIClient(api_key="t")
+    (_, meta), mock_req = run_with_responses(
+        lambda: client.generate_image(
+            prompt="1girl",
+            model="nai-diffusion-5-full-medium",
+            steps=28,
+            sampler="k_dpmpp_2m",
+            uc_preset="light",
+            cfg_rescale=0.4,
+        ),
+        [ok_response(create_dummy_png())],
+    )
+    payload = sent_json(mock_req)
+    params = payload["parameters"]
+    assert payload["model"] == "nai-diffusion-5-full-medium"
+    assert params["steps"] == 14
+    assert params["sampler"] == "k_euler_ancestral"
+    assert params["ucPreset"] == 0
+    assert params["cfg_rescale"] == 0.0
+    assert params["v4_negative_prompt"]["caption"]["base_caption"].startswith("lowres, artistic error, film grain")
+    assert meta["steps"] == 14
+    assert meta["sampler"] == "k_euler_ancestral"
+
+
+def test_medium_effort_rejects_negative_prompts():
+    client = NovelAIClient(api_key="t")
+    with pytest.raises(NovelAIError, match="custom negative prompt. Use 'nai-diffusion-5-full'"):
+        asyncio.run(client.generate_image(prompt="x", model="nai-diffusion-5-full-medium", negative_prompt="hat"))
+    chars = [{"prompt": "1girl", "negative_prompt": "hat"}]
+    with pytest.raises(NovelAIError, match="character negative prompts"):
+        asyncio.run(client.generate_image(prompt="x", model="nai-diffusion-5-full-medium", characters=chars))
+
+
 def test_render_text_removes_text_suppression():
     client = NovelAIClient(api_key="t")
     _, mock_req = run_with_responses(
