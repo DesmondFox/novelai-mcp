@@ -81,7 +81,7 @@ async def novelai_generate_image(
     Args:
         prompt: Description of the image. Danbooru tags or natural language (English/Japanese/etc.).
         negative_prompt: Undesired content. The uc_preset tags are appended to it.
-        model: Model name (defaults to 'nai-diffusion-5-full'). Options: nai-diffusion-5-full, nai-diffusion-5-curated, nai-diffusion-4-5-full, nai-diffusion-4-5-curated.
+        model: Model name (defaults to 'nai-diffusion-5-full'). Options: nai-diffusion-5-full, nai-diffusion-5-full-medium, nai-diffusion-5-curated, nai-diffusion-4-5-full, nai-diffusion-4-5-curated. nai-diffusion-5-full-medium is V5 Full at Medium effort: about 40% cheaper, similar quality. It always uses 14 steps, k_euler_ancestral, the 'strong' uc_preset and no cfg_rescale, ignoring those arguments. It rejects negative_prompt and character negative prompts.
         size: Dimension preset: portrait (832x1216), landscape (1216x832), square (1024x1024), wallpaper (1920x1088), comic_page (832x1216), comic_strip (1536x640), manga_page (832x1216). Ignored when width and height are both set.
         width: Custom width (rounded to nearest multiple of 64). Requires height.
         height: Custom height (rounded to nearest multiple of 64). Requires width.

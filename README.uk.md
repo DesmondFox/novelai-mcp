@@ -96,7 +96,7 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 
 | Параметр | За замовчуванням | Примітка |
 | :--- | :--- | :--- |
-| `model` | `nai-diffusion-5-full` | Також `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
+| `model` | `nai-diffusion-5-full` | Також `nai-diffusion-5-full-medium`, `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
 | `size` | `portrait` | `portrait` 832×1216, `landscape` 1216×832, `square` 1024×1024, `wallpaper` 1920×1088, `comic_strip` 1536×640 та інші. |
 | `width`, `height` | — | Власний розмір, округлюється до кратного 64. Потрібно задати обидва. |
 | `steps` | 23 | Як на сайті NovelAI. |
@@ -107,6 +107,8 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 | `render_text` | — | Текст, який треба намалювати на зображенні. |
 | `transparent` | false | Прозорий фон. |
 | `comic_panels` | false | Додає теги комікс/манга-панелей. |
+
+`nai-diffusion-5-full-medium` — V5 Full на рівні Medium effort: приблизно на 40% дешевше за схожої якості. NovelAI фіксує для нього налаштування: 14 steps, `k_euler_ancestral`, UC preset `strong`, без `cfg_rescale`. Сервер виставляє їх сам. Negative prompt не підтримується і повертає помилку.
 
 ## Розробка
 

@@ -13,6 +13,7 @@ import httpx
 from novelai_mcp import __version__
 from novelai_mcp.models import (
     DEFAULT_STEPS,
+    MEDIUM_STEPS,
     QUALITY_TAGS,
     UC_PRESET_INDEX,
     UC_PRESET_TAGS,
@@ -128,6 +129,8 @@ class NovelAIClient:
         """
         Generate image(s) via /ai/generate-image endpoint.
         Returns a tuple of (list of image bytes, metadata dict).
+
+        For V5 Full Medium the fixed settings replace steps, sampler, uc_preset and cfg_rescale.
         """
         model_name = model.value if isinstance(model, ImageModel) else str(model)
         if "diffusion-5" not in model_name and "diffusion-4" not in model_name:
@@ -138,6 +141,15 @@ class NovelAIClient:
             uc = UCPreset(uc_preset)
         except ValueError:
             raise NovelAIError(f"Unknown uc_preset '{uc_preset}'. Options: {', '.join(p.value for p in UCPreset)}")
+
+        is_medium = model_name == ImageModel.V5_FULL_MEDIUM.value
+        if is_medium:
+            if negative_prompt:
+                raise NovelAIError(f"Model '{model_name}' does not support a custom negative prompt.")
+            steps = MEDIUM_STEPS
+            sampler_name = Sampler.K_EULER_ANCESTRAL.value
+            uc = UCPreset.STRONG
+            cfg_rescale = 0.0
 
         w, h = resolve_dimensions(size, width, height)
         used_seed = seed if seed is not None and seed >= 0 else random.randint(0, 2**32 - 1)
@@ -167,6 +179,8 @@ class NovelAIClient:
             final_neg = ", ".join(t for t in neg_tags if t.lower() not in TEXT_TAGS)
 
         char_captions, char_neg_captions, has_coords = self._build_characters(characters or [], model_name)
+        if is_medium and any(c["char_caption"] for c in char_neg_captions):
+            raise NovelAIError(f"Model '{model_name}' does not support character negative prompts.")
 
         params: Dict[str, Any] = {
             "params_version": 4 if is_v5 else 3,
