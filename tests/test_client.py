@@ -3,6 +3,7 @@
 import asyncio
 import base64
 import io
+import os
 import zipfile
 from pathlib import Path
 from typing import List
@@ -99,6 +100,16 @@ def test_load_image_and_base64(tmp_path):
 
     with pytest.raises(ValueError, match="not found"):
         load_image(str(tmp_path / "missing.png"))
+
+
+def test_load_image_long_base64():
+    # Noise does not compress, so the base64 string is far longer than the OS path limit.
+    img = Image.frombytes("RGB", (128, 128), os.urandom(128 * 128 * 3))
+    b64 = image_to_base64(img)
+    assert len(b64) > 4096
+
+    _, _, w, h = load_image(b64)
+    assert (w, h) == (128, 128)
 
 
 def test_save_image(tmp_path):
