@@ -79,6 +79,7 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 | :--- | :--- | :--- | :--- |
 | `NOVELAI_API_KEY` | да | — | Persistent API Token. |
 | `NOVELAI_OUTPUT_DIR` | нет | `~/Pictures/NovelAI` | Папка для изображений. Каждый инструмент также принимает `output_dir`. |
+| `NOVELAI_DEFAULT_MODEL` | нет | `nai-diffusion-5-full` | `model` по умолчанию для `novelai_generate_image`. Укажите `nai-diffusion-5-full-medium`, чтобы тратить меньше. У остальных инструментов свои значения по умолчанию. |
 
 ## Использование
 

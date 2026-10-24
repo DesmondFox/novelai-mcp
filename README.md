@@ -83,6 +83,7 @@ Replace `"args": ["mcp-server-novelai"]` with:
 | :--- | :--- | :--- | :--- |
 | `NOVELAI_API_KEY` | yes | — | Persistent API Token. |
 | `NOVELAI_OUTPUT_DIR` | no | `~/Pictures/NovelAI` | Where images are saved. Each tool also accepts `output_dir`. |
+| `NOVELAI_DEFAULT_MODEL` | no | `nai-diffusion-5-full` | Default `model` of `novelai_generate_image`. Set `nai-diffusion-5-full-medium` to spend less. Other tools keep their own defaults. |
 
 ## Usage
 

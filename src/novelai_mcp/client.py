@@ -145,7 +145,10 @@ class NovelAIClient:
         is_medium = model_name == ImageModel.V5_FULL_MEDIUM.value
         if is_medium:
             if negative_prompt:
-                raise NovelAIError(f"Model '{model_name}' does not support a custom negative prompt.")
+                raise NovelAIError(
+                    f"Model '{model_name}' does not support a custom negative prompt. "
+                    f"Use '{ImageModel.V5_FULL.value}' for negative prompts."
+                )
             steps = MEDIUM_STEPS
             sampler_name = Sampler.K_EULER_ANCESTRAL.value
             uc = UCPreset.STRONG
@@ -180,7 +183,10 @@ class NovelAIClient:
 
         char_captions, char_neg_captions, has_coords = self._build_characters(characters or [], model_name)
         if is_medium and any(c["char_caption"] for c in char_neg_captions):
-            raise NovelAIError(f"Model '{model_name}' does not support character negative prompts.")
+            raise NovelAIError(
+                f"Model '{model_name}' does not support character negative prompts. "
+                f"Use '{ImageModel.V5_FULL.value}' for negative prompts."
+            )
 
         params: Dict[str, Any] = {
             "params_version": 4 if is_v5 else 3,

@@ -53,6 +53,17 @@ def test_default_model_is_v5_full():
     assert gen_model_prop.get("default") == "nai-diffusion-5-full"
 
 
+def test_default_generation_model_from_env(monkeypatch):
+    from novelai_mcp.server import default_generation_model
+
+    monkeypatch.delenv("NOVELAI_DEFAULT_MODEL", raising=False)
+    assert default_generation_model() == "nai-diffusion-5-full"
+    monkeypatch.setenv("NOVELAI_DEFAULT_MODEL", "  ")
+    assert default_generation_model() == "nai-diffusion-5-full"
+    monkeypatch.setenv("NOVELAI_DEFAULT_MODEL", "nai-diffusion-5-full-medium")
+    assert default_generation_model() == "nai-diffusion-5-full-medium"
+
+
 def test_v5_new_tool_parameters():
     """Verify newly added V5 parameters exist in novelai_generate_image schema."""
     tools_list = asyncio.run(server.list_tools())

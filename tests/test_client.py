@@ -235,7 +235,7 @@ def test_medium_effort_forces_fixed_settings():
 
 def test_medium_effort_rejects_negative_prompts():
     client = NovelAIClient(api_key="t")
-    with pytest.raises(NovelAIError, match="custom negative prompt"):
+    with pytest.raises(NovelAIError, match="custom negative prompt. Use 'nai-diffusion-5-full'"):
         asyncio.run(client.generate_image(prompt="x", model="nai-diffusion-5-full-medium", negative_prompt="hat"))
     chars = [{"prompt": "1girl", "negative_prompt": "hat"}]
     with pytest.raises(NovelAIError, match="character negative prompts"):
