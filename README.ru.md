@@ -92,7 +92,21 @@ claude mcp add novelai -e NOVELAI_API_KEY=ваш_токен -- uvx mcp-server-no
 - «Убери фон с этой картинки и сделай апскейл.»
 - «Подскажи теги для 'kimono'.»
 
-Основные параметры `novelai_generate_image` описаны в [английском README](README.md#usage).
+Полезные параметры `novelai_generate_image`:
+
+| Параметр | По умолчанию | Примечание |
+| :--- | :--- | :--- |
+| `model` | `nai-diffusion-5-full` | Также `nai-diffusion-5-curated`, `nai-diffusion-4-5-full`, `nai-diffusion-4-5-curated`. |
+| `size` | `portrait` | `portrait` 832×1216, `landscape` 1216×832, `square` 1024×1024, `wallpaper` 1920×1088, `comic_strip` 1536×640 и другие. |
+| `width`, `height` | — | Свой размер, округляется до кратного 64. Нужно задать оба. |
+| `steps` | 23 | Как на сайте NovelAI. |
+| `scale` | 5.0 | Сила следования промпту. |
+| `seed` | случайный | Задайте, чтобы повторить изображение. Использованный seed возвращается в ответе. |
+| `uc_preset` | `light` | `strong`, `light`, `furry_focus`, `human_focus`, `none`. |
+| `characters` | — | Список `{"prompt": ..., "negative_prompt": ..., "position": [x, y]}`, x и y в диапазоне 0.0–1.0. До 22 на V5, до 6 на V4/V4.5. |
+| `render_text` | — | Текст, который нужно нарисовать на изображении. |
+| `transparent` | false | Прозрачный фон. |
+| `comic_panels` | false | Добавляет теги комикс/манга-панелей. |
 
 ## Разработка
 
