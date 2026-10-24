@@ -1,6 +1,6 @@
 # NovelAI MCP Server
 
-[English version](README.md)
+[English version](README.md) · [Українська версія](README.uk.md)
 
 [MCP](https://modelcontextprotocol.io)-сервер, через который Claude, Cursor и другие MCP-клиенты генерируют и редактируют изображения в [NovelAI](https://novelai.net).
 

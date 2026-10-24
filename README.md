@@ -4,7 +4,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/DesmondFox/novelai-mcp/blob/main/LICENSE)
 
-[Русская версия](https://github.com/DesmondFox/novelai-mcp/blob/main/README.ru.md)
+[Русская версия](https://github.com/DesmondFox/novelai-mcp/blob/main/README.ru.md) · [Українська версія](https://github.com/DesmondFox/novelai-mcp/blob/main/README.uk.md)
 
 An [MCP](https://modelcontextprotocol.io) server that lets Claude, Cursor and other MCP clients generate and edit images with [NovelAI](https://novelai.net).
 
