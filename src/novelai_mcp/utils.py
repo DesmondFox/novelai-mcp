@@ -50,7 +50,13 @@ def load_image(image_input: str) -> Tuple[bytes, Image.Image, int, int]:
         Tuple of (raw_bytes, PIL.Image, width, height)
     """
     path = Path(image_input.strip('"\''))
-    if path.is_file():
+    try:
+        is_file = path.is_file()
+    except OSError:
+        # On Linux/macOS a long base64 string exceeds the path length limit and
+        # is_file() raises ENAMETOOLONG instead of returning False (Python < 3.14).
+        is_file = False
+    if is_file:
         raw_bytes = path.read_bytes()
     elif path.suffix.lower() in (".png", ".webp", ".jpg", ".jpeg"):
         raise ValueError(f"Image file not found: '{image_input}'")
