@@ -2,9 +2,9 @@
 
 [![CI](https://github.com/DesmondFox/novelai-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/DesmondFox/novelai-mcp/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/DesmondFox/novelai-mcp/blob/main/LICENSE)
 
-[Русская версия](README.ru.md)
+[Русская версия](https://github.com/DesmondFox/novelai-mcp/blob/main/README.ru.md) · [Українська версія](https://github.com/DesmondFox/novelai-mcp/blob/main/README.uk.md)
 
 An [MCP](https://modelcontextprotocol.io) server that lets Claude, Cursor and other MCP clients generate and edit images with [NovelAI](https://novelai.net).
 
@@ -126,4 +126,4 @@ For local development you can put the key in a `.env` file (see `.env.example`) 
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/DesmondFox/novelai-mcp/blob/main/LICENSE)
